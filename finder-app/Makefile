@@ -1,12 +1,11 @@
-CC = gcc
+CC ?= gcc
 CFLAGS = -Wall -Werror
-TARGET = writer
-SRC = writer.c
 
-all: $(TARGET)
+all: writer
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)
+writer: writer.c
+	$(CC) $(CFLAGS) -o writer writer.c
 
 clean:
-	rm -f $(TARGET)
+	rm -f writer *.o
+
