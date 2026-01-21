@@ -25,8 +25,6 @@ rm -rf "${WRITEDIR}"
 mkdir -p "${WRITEDIR}"
 
 # Clean and build writer (ONLY at start)
-make clean
-make
 
 # Create files
 i=0
