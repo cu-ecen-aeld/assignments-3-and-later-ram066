@@ -17,7 +17,24 @@ bool do_system(const char *cmd)
  *   or false() if it returned a failure
 */
 
-    return true;
+if (cmd == NULL) 
+    {
+        return false;
+    }
+
+    int ret = system(cmd);
+
+    if (ret == -1) 
+    {
+        return false;
+    }
+
+    if (WIFEXITED(ret) && (WEXITSTATUS(ret) == 0)) 
+    {
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -48,6 +65,9 @@ bool do_exec(int count, ...)
     // this line is to avoid a compile warning before your implementation is complete
     // and may be removed
     command[count] = command[count];
+    
+    
+    va_end(args);
 
 /*
  * TODO:
@@ -59,9 +79,26 @@ bool do_exec(int count, ...)
  *
 */
 
-    va_end(args);
+    pid_t pid = fork();
+    if (pid == -1) {
+        return false;
+    }
 
-    return true;
+    if (pid == 0) {
+        execv(command[0], command);
+        exit(EXIT_FAILURE);   // execv only returns on failure
+    }
+
+    int status;
+    if (waitpid(pid, &status, 0) == -1) {
+        return false;
+    }
+
+    if (WIFEXITED(status) && (WEXITSTATUS(status) == 0)) {
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -82,7 +119,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
     command[count] = NULL;
     // this line is to avoid a compile warning before your implementation is complete
     // and may be removed
-    command[count] = command[count];
+    //command[count] = command[count];
 
 
 /*
@@ -95,5 +132,37 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
 
     va_end(args);
 
-    return true;
+    pid_t pid = fork();
+    if (pid == -1) {
+        return false;
+    }
+
+    if (pid == 0) {
+        int fd = open(outputfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (fd == -1) {
+            exit(EXIT_FAILURE);
+        }
+
+        if (dup2(fd, STDOUT_FILENO) == -1) {
+            close(fd);
+            exit(EXIT_FAILURE);
+        }
+
+        close(fd);
+
+        execv(command[0], command);
+        exit(EXIT_FAILURE);
+    }
+
+    int status;
+    if (waitpid(pid, &status, 0) == -1) {
+        return false;
+    }
+
+    if (WIFEXITED(status) && (WEXITSTATUS(status) == 0)) {
+        return true;
+    }
+
+    return false;
+
 }
