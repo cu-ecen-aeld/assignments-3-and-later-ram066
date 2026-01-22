@@ -1,5 +1,10 @@
 #include "systemcalls.h"
-
+#include <stdlib.h>     // system(), exit(), EXIT_FAILURE
+#include <unistd.h>     // fork(), execv(), dup2(), STDOUT_FILENO
+#include <sys/wait.h>   // waitpid(), WIFEXITED, WEXITSTATUS
+#include <sys/types.h>  // pid_t
+#include <fcntl.h>      // open(), O_WRONLY, O_CREAT, O_TRUNC
+#include <stdio.h>      // fflush()
 /**
  * @param cmd the command to execute with system()
  * @return true if the command in @param cmd was executed
