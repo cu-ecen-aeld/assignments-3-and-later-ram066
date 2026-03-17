@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 if [ $# -ne 2 ]; then
     echo "Error: Two arguments required"
     echo "Usage: $0 <filesdir> <searchstr>"
