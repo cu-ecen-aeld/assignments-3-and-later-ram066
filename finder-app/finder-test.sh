@@ -50,7 +50,7 @@ mkdir -p "${WRITEDIR}"
 i=0
 while [ $i -lt $NUMFILES ]
 do
-    ./writer "${WRITEDIR}/file${i}.txt" "${WRITESTR}"
+    writer "${WRITEDIR}/file${i}.txt" "${WRITESTR}"
     i=$((i+1))
 done
 
