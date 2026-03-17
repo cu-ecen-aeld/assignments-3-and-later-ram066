@@ -1,13 +1,34 @@
-#!/bin/sh
+#!/bin/bash
 # Tester script for assignment 1 and assignment 2
 # Author: Siddhant Jajoo
-
+set -o pipefail
 set -e
 set -u
 
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
+
+
+# Create temp directory for test
+TEST_DIR=/tmp/aesd-test
+mkdir -p $TEST_DIR
+
+
+
+# Create some test files
+echo "hello world" > $TEST_DIR/file1.txt
+echo "hello AESD" > $TEST_DIR/file2.txt
+echo "no match here" > $TEST_DIR/file3.txt
+
+# Run finder using PATH (no ./)
+finder.sh $TEST_DIR hello > /tmp/assignment4-result.txt
+
+# Print result (optional for debug)
+cat /tmp/assignment4-result.txt
+
+
+
 
 if [ $# -ge 1 ]; then
     NUMFILES=$1
