@@ -1,18 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 set -euo pipefail
 
 if [ $# -ne 2 ]; then
- echo "Error:Two arguments required usage: <filedir> <searchdir>"
- exit 1
+    echo "Error: Two arguments required"
+    echo "Usage: $0 <filesdir> <searchstr>"
+    exit 1
 fi
-filedir="$1"
+
+filesdir="$1"
 searchstr="$2"
-if [ ! -d "$filedir" ]; then
- echo "error: $filedir is not valid directory"
- exit 1
+
+if [ ! -d "$filesdir" ]; then
+    echo "Error: $filesdir is not a valid directory"
+    exit 1
 fi
- 
- X=$(find "$filedir" -type f | wc -l)
- Y=$(grep -R -F -I "$searchstr" "$filedir" 2>/dev/null | wc -l)
- 
- echo "The number of files are $X and the number of matching lines are $Y"
+
+X=$(find "$filesdir" -type f 2>/dev/null | wc -l)
+Y=$(grep -r -F "$searchstr" "$filesdir" 2>/dev/null | wc -l)
+
+echo "The number of files are $X and the number of matching lines are $Y"
