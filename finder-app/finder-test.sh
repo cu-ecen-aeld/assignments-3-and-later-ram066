@@ -55,7 +55,7 @@ do
 done
 
 # Run finder
-OUTPUTSTRING=$(./finder.sh "${WRITEDIR}" "${WRITESTR}")
+OUTPUTSTRING=$(finder.sh "${WRITEDIR}" "${WRITESTR}")
 
 set +e
 echo "${OUTPUTSTRING}" | grep "${MATCHSTR}"
