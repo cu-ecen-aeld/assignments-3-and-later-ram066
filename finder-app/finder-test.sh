@@ -21,7 +21,7 @@ echo "hello AESD" > $TEST_DIR/file2.txt
 echo "no match here" > $TEST_DIR/file3.txt
 
 # Run finder using PATH (no ./)
-finder.sh $TEST_DIR hello > /tmp/assignment4-result.txt
+./finder.sh $TEST_DIR hello > /tmp/assignment4-result.txt
 
 # Print result (optional for debug)
 cat /tmp/assignment4-result.txt
@@ -66,4 +66,3 @@ else
     echo "failed: expected ${MATCHSTR} in ${OUTPUTSTRING}"
     exit 1
 fi
-
