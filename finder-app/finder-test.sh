@@ -13,8 +13,7 @@ echo "hello world" > $TEST_DIR/file1.txt
 echo "hello AESD" > $TEST_DIR/file2.txt
 echo "no match here" > $TEST_DIR/file3.txt
 
-# FIXED: removed ./
-finder.sh $TEST_DIR hello > /tmp/assignment4-result.txt
+./finder.sh $TEST_DIR hello > /tmp/assignment4-result.txt
 
 cat /tmp/assignment4-result.txt
 
@@ -40,8 +39,8 @@ do
     i=$((i+1))
 done
 
-# FIXED: removed ./
-OUTPUTSTRING=$(finder.sh "${WRITEDIR}" "${WRITESTR}")
+
+OUTPUTSTRING=$(./finder.sh "${WRITEDIR}" "${WRITESTR}")
 
 set +e
 echo "${OUTPUTSTRING}" | grep "${MATCHSTR}"
