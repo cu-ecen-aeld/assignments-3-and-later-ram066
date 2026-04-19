@@ -1,39 +1,11 @@
 name: assignment-test
-
 on:
-  push:
-  pull_request:
-
+    push:
+        tags-ignore:
+            - '*'
+        branches:
+            - '*'
 jobs:
-
-  unit-test:
-    runs-on: ubuntu-latest
-    container: cuaesd/aesd-autotest:24-unit-test
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Make scripts executable
-        run: chmod +x *.sh
-
-      - name: Run unit test
-        run: ./unit-test.sh
-
-  full-test:
-    runs-on: ubuntu-latest
-    container: cuaesd/aesd-autotest:24-assignment2
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Make scripts executable
-        run: chmod +x *.sh
-
-      - name: Run full test
-        run: ./full-test.sh
-
     unit-test:
         container: cuaesd/aesd-autotest:24-unit-test
         runs-on: self-hosted
@@ -43,10 +15,8 @@ jobs:
             run : git submodule update --init --recursive
           - name: Run unit test
             run: ./unit-test.sh
-<<<<<<< HEAD
->>>>>>> ...
     full-test:
-        container: cuaesd/aesd-autotest:24-assignment3
+        container: cuaesd/aesd-autotest:24-assignment5
         runs-on: self-hosted
         steps:
           - uses: actions/checkout@v2
