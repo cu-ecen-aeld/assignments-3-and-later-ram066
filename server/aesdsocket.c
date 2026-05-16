@@ -18,8 +18,20 @@ int exit_flag = 0;
 
 void signal_handler(int sig)
 {
-    syslog(LOG_INFO, "Caught signal, exiting");
-    exit_flag = 1;
+ //   syslog(LOG_INFO, "Caught signal, exiting");
+   // exit_flag = 1;
+syslog(LOG_DEBUG, "Caught signal, exiting");
+
+    if(server_fd != -1)
+    {
+        close(server_fd);
+    }
+
+    remove("/var/tmp/aesdsocketdata");
+
+    closelog();
+
+    exit(EXIT_SUCCESS);
 }
 
 int main(int argc, char *argv[])
